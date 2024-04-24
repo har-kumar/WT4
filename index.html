@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TNPSC Exam Registration</title>
+<style>
+   body {
+    font-family: Arial, sans-serif;
+    background-image: url('tnpsc.jpg'); /* Replace 'background-image.jpg' with the path to your image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  .form-group {
+    margin-bottom: 20px;
+  }
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  input[type="text"], input[type="email"], input[type="tel"], input[type="date"], select, textarea {
+    width: calc(100% - 16px);
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  input[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  .registration-details {
+    display: none;
+    background-color: pink;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>TNPSC Exam Registration</h2>
+  <form id="registrationForm" onsubmit="return validateForm()">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone:</label>
+      <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+    </div>
+    <div class="form-group">
+      <label for="dob">Date of Birth:</label>
+      <input type="date" id="dob" name="dob" required>
+    </div>
+    <div class="form-group">
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age" required>
+    </div>
+    <div class="form-group">
+      <label for="address">Address:</label>
+      <textarea id="address" name="address" rows="3" required></textarea>
+    </div>
+    <div class="form-group">
+      <label>Gender:</label>
+      <div>
+        <label><input type="radio" name="gender" value="Male" required> Male</label>
+        <label><input type="radio" name="gender" value="Female"> Female</label>
+        <label><input type="radio" name="gender" value="Other"> Other</label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="eduQualification">Educational Qualification:</label>
+      <select id="eduQualification" name="eduQualification" required>
+        <option value="">Select Qualification</option>
+        <option value="10">10th</option>
+        <option value="12">12th</option>
+        <option value="Degree">Degree</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="examCenter">Exam Center:</label>
+      <label><input type="checkbox" name="examCenter" value="Chennai"> Chennai</label>
+      <label><input type="checkbox" name="examCenter" value="Coimbatore"> Coimbatore</label>
+      <label><input type="checkbox" name="examCenter" value="Madurai"> Madurai</label>
+    </div>
+    <div class="form-group">
+      <label for="photo">Upload Photo:</label>
+      <input type="file" id="photo" name="photo" accept="image/*" required>
+    </div>
+    <div class="form-group">
+      <label for="signature">Upload Signature:</label>
+      <input type="file" id="signature" name="signature" accept="image/*" required>
+    </div>
+    <div class="form-group">
+      <label for="examType">Exam Type:</label>
+      <select id="examType" name="examType" required>
+        <option value="">Select Exam Type</option>
+        <option value="Group 1">Group 1</option>
+        <option value="Group 2">Group 2</option>
+        <option value="Group 3">Group 3</option>
+        <option value="Group 4">Group 4</option>
+      </select>
+    </div>
+    <input type="submit" value="Register">
+  </form>
+
+  <div class="registration-details">
+    <h2>Registration Details</h2>
+    <p><strong>Name:</strong> <span id="regName"></span></p>
+    <p><strong>Email:</strong> <span id="regEmail"></span></p>
+    <p><strong>Phone:</strong> <span id="regPhone"></span></p>
+    <p><strong>Date of Birth:</strong> <span id="regDOB"></span></p>
+    <p><strong>Age:</strong> <span id="regAge"></span></p>
+    <p><strong>Address:</strong> <span id="regAddress"></span></p>
+    <p><strong>Gender:</strong> <span id="regGender"></span></p>
+    <p><strong>Educational Qualification:</strong> <span id="regEduQualification"></span></p>
+    <p><strong>Exam Center:</strong> <span id="regExamCenter"></span></p>
+    <p><strong>Exam Type:</strong> <span id="regExamType"></span></p>
+  </div>
+</div>
+
+<script>
+function validateForm() {
+  var name = document.getElementById('name').value;
+  var email = document.getElementById('email').value;
+  var phone = document.getElementById('phone').value;
+  var dob = document.getElementById('dob').value;
+  var age = parseInt(document.getElementById('age').value);
+  var address = document.getElementById('address').value;
+  var gender = document.querySelector('input[name="gender"]:checked');
+  var eduQualification = document.getElementById('eduQualification').value;
+  var examCenter = document.querySelectorAll('input[name="examCenter"]:checked');
+  var photo = document.getElementById('photo').value;
+  var signature = document.getElementById('signature').value;
+  var examType = document.getElementById('examType').value;
+
+  if (name.trim() == '' || email.trim() == '' || phone.trim() == '' || dob.trim() == '' || age == 0 || address.trim() == '' || !gender || eduQualification.trim() == '' || examCenter.length < 1 || photo.trim() == '' || signature.trim() == '' || examType.trim() == '') {
+    alert('Please fill in all fields.');
+    return false;
+  }
+
+  if (age < 18) {
+    alert('Age must be 18 or above for TNPSC exams.');
+    return false;
+  }
+
+  // Display registration details if all validations pass
+  document.getElementById('regName').innerText = name;
+  document.getElementById('regEmail').innerText = email;
+  document.getElementById('regPhone').innerText = phone;
+  document.getElementById('regDOB').innerText = dob;
+  document.getElementById('regAge').innerText = age;
+  document.getElementById('regAddress').innerText = address;
+  document.getElementById('regGender').innerText = gender.value;
+  document.getElementById('regEduQualification').innerText = eduQualification;
+  
+  var examCenters = [];
+  examCenter.forEach(function(checkbox) {
+    examCenters.push(checkbox.value);
+  });
+  document.getElementById('regExamCenter').innerText = examCenters.join(', ');
+  
+  document.getElementById('regExamType').innerText = examType;
+
+  // Hide registration form and display registration details
+  document.getElementById('registrationForm').style.display = 'none';
+  document.querySelector('.registration-details').style.display = 'block';
+
+  // Alert registration successful
+  alert('Registration successful!');
+
+  // Prevent form submission
+  return false;
+}
+</script>
+
+</body>
+</html>
